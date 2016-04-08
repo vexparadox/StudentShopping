@@ -11,10 +11,9 @@ import UIKit
 class SecondViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var txtItem : UITextField!
-    @IBOutlet var stepAmount : UIStepper!
-    @IBOutlet var lblAmount : UILabel!
-    @IBOutlet var pickItem : UIPickerView!
-    
+    @IBOutlet var txtDesc : UITextField!
+    @IBOutlet var activityMonitor : UIActivityIndicatorView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -25,10 +24,17 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    //to add an item
     @IBAction func btnAddItemClick(sender: UIButton){
-        let request = NSMutableURLRequest(URL: NSURL(string: "http://igor.gold.ac.uk/~wmeat002/app/login.php")!)
+        activityMonitor.startAnimating()
+        //you require a name
+        if(txtItem.text == ""){
+            activityMonitor.stopAnimating()
+            return
+        }
+        let request = NSMutableURLRequest(URL: NSURL(string: "http://igor.gold.ac.uk/~wmeat002/app/add.php")!)
         request.HTTPMethod = "POST"
-        let postString = "username=test&password=test"
+        let postString = "item="+txtItem.text!+"&desc="+txtDesc.text!
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
             guard error == nil && data != nil else {                                                          // check for fundamental networking error
@@ -36,21 +42,16 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             let httpStatus = response as? NSHTTPURLResponse
-            if  httpStatus?.statusCode != 420 {           // check for http
-                print("Login not successful")
-                print("response = \(response)")
+            if  httpStatus?.statusCode == 420 {           // check for http
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.activityMonitor.stopAnimating()
+                    //initiate data reload
+                    invManager.dataLoaded = false
+                    self.tabBarController?.selectedIndex = 0
+                }
             }
-            print(httpStatus?.statusCode)
-            
-            let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            print("responseString = \(responseString)")
         }
         task.resume()
-    }
-    
-    //when the stepper is changed
-    @IBAction func stepperValueChanged(sender: UIStepper) {
-        lblAmount.text = Int(sender.value).description
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -58,7 +59,11 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool{
-        self.view.endEditing(true)
+        if(textField.isEqual(txtItem)){
+            txtDesc.isFirstResponder()
+        }else{
+            self.view.endEditing(true)
+        }
         return true
     }
 

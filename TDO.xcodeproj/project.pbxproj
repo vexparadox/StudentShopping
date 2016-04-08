@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C207B2281CB3BE70006BFD32 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = C207B2271CB3BE70006BFD32 /* Common.swift */; };
+		C207B22D1CB7C3A5006BFD32 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C207B22C1CB7C3A5006BFD32 /* SignUpViewController.swift */; };
 		C273F9261CAFDAC4007174C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273F9251CAFDAC4007174C4 /* AppDelegate.swift */; };
 		C273F9281CAFDAC4007174C4 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273F9271CAFDAC4007174C4 /* FirstViewController.swift */; };
 		C273F92A1CAFDAC4007174C4 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273F9291CAFDAC4007174C4 /* SecondViewController.swift */; };
@@ -17,6 +19,7 @@
 		C273F9481CAFDAC5007174C4 /* TDOUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273F9471CAFDAC5007174C4 /* TDOUITests.swift */; };
 		C273F9561CB020E4007174C4 /* InventoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273F9551CB020E4007174C4 /* InventoryManager.swift */; };
 		C29966D01CB2C9E500C15998 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29966CF1CB2C9E500C15998 /* LoginViewController.swift */; };
+		C29966D21CB2E8CF00C15998 /* CSwiftV.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29966D11CB2E8CF00C15998 /* CSwiftV.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C207B2271CB3BE70006BFD32 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		C207B2291CB3BEA6006BFD32 /* HeaderLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderLoader.h; sourceTree = "<group>"; };
+		C207B22C1CB7C3A5006BFD32 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C273F9221CAFDAC4007174C4 /* TDO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TDO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C273F9251CAFDAC4007174C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C273F9271CAFDAC4007174C4 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +59,7 @@
 		C273F9491CAFDAC5007174C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C273F9551CB020E4007174C4 /* InventoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryManager.swift; sourceTree = "<group>"; };
 		C29966CF1CB2C9E500C15998 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C29966D11CB2E8CF00C15998 /* CSwiftV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSwiftV.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +87,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C207B22A1CB3BEAC006BFD32 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C207B2271CB3BE70006BFD32 /* Common.swift */,
+				C207B2291CB3BEA6006BFD32 /* HeaderLoader.h */,
+				C29966D11CB2E8CF00C15998 /* CSwiftV.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		C207B22B1CB3BEB1006BFD32 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C273F9271CAFDAC4007174C4 /* FirstViewController.swift */,
+				C273F9291CAFDAC4007174C4 /* SecondViewController.swift */,
+				C29966CF1CB2C9E500C15998 /* LoginViewController.swift */,
+				C207B22C1CB7C3A5006BFD32 /* SignUpViewController.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		C273F9191CAFDAC4007174C4 = {
 			isa = PBXGroup;
 			children = (
@@ -104,12 +132,11 @@
 			isa = PBXGroup;
 			children = (
 				C273F9251CAFDAC4007174C4 /* AppDelegate.swift */,
-				C273F9271CAFDAC4007174C4 /* FirstViewController.swift */,
-				C273F9291CAFDAC4007174C4 /* SecondViewController.swift */,
-				C29966CF1CB2C9E500C15998 /* LoginViewController.swift */,
-				C273F92B1CAFDAC4007174C4 /* Main.storyboard */,
 				C273F9551CB020E4007174C4 /* InventoryManager.swift */,
+				C207B22A1CB3BEAC006BFD32 /* Utils */,
+				C207B22B1CB3BEB1006BFD32 /* Views */,
 				C273F92E1CAFDAC4007174C4 /* Assets.xcassets */,
+				C273F92B1CAFDAC4007174C4 /* Main.storyboard */,
 				C273F9301CAFDAC4007174C4 /* LaunchScreen.storyboard */,
 				C273F9331CAFDAC4007174C4 /* Info.plist */,
 			);
@@ -268,9 +295,12 @@
 			files = (
 				C273F92A1CAFDAC4007174C4 /* SecondViewController.swift in Sources */,
 				C273F9261CAFDAC4007174C4 /* AppDelegate.swift in Sources */,
+				C207B22D1CB7C3A5006BFD32 /* SignUpViewController.swift in Sources */,
 				C273F9561CB020E4007174C4 /* InventoryManager.swift in Sources */,
 				C29966D01CB2C9E500C15998 /* LoginViewController.swift in Sources */,
+				C29966D21CB2E8CF00C15998 /* CSwiftV.swift in Sources */,
 				C273F9281CAFDAC4007174C4 /* FirstViewController.swift in Sources */,
+				C207B2281CB3BE70006BFD32 /* Common.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,10 +445,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TDO/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = willmeaton.uk.TDO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = TDO/HeaderLoader.h;
 			};
 			name = Debug;
 		};
@@ -429,10 +461,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TDO/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = willmeaton.uk.TDO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = TDO/HeaderLoader.h;
 			};
 			name = Release;
 		};
