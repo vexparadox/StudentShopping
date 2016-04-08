@@ -77,7 +77,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         self.presentViewController(signupViewController, animated:true, completion:nil)
 
     }
-
     
     @IBAction func btnLogoutClick(sender: UIButton){
         //wipe the logout
@@ -117,20 +116,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     func checkLogin(password: String, username: String){
         let loginRequest = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/login.php", postString: "username="+username+"&password="+password)
         if(loginRequest.responseCode == -1){ // if there's a network error
-            self.lblResponse.text = "Network error"
-            self.activityMonitor.stopAnimating()
+            lblResponse.text = "Network error"
+            activityMonitor.stopAnimating()
         }else if(loginRequest.responseCode == 420){ //if the login is successful
             let prefs = NSUserDefaults.standardUserDefaults()
             prefs.setBool(true, forKey: "logged")
             prefs.setValue(self.txtUsername.text!, forKey: "username")
-            self.lblResponse.text = "Login successful"
-            self.txtUsername.text = ""
-            self.txtPassword.text = ""
-            self.activityMonitor.stopAnimating()
-            self.tabBarController?.selectedIndex = 0
+            lblResponse.text = "Login successful"
+            txtUsername.text = ""
+            txtPassword.text = ""
+            activityMonitor.stopAnimating()
+            tabBarController?.selectedIndex = 0
         }else{ //if not
-            self.lblResponse.text = "Login failed"
-            self.activityMonitor.stopAnimating()
+            lblResponse.text = "Login failed"
+            activityMonitor.stopAnimating()
         }
     }
     

@@ -32,26 +32,15 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
             activityMonitor.stopAnimating()
             return
         }
-        let request = NSMutableURLRequest(URL: NSURL(string: "http://igor.gold.ac.uk/~wmeat002/app/add.php")!)
-        request.HTTPMethod = "POST"
-        let postString = "item="+txtItem.text!+"&desc="+txtDesc.text!
-        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
-            guard error == nil && data != nil else {                                                          // check for fundamental networking error
-                print("error=\(error)")
-                return
-            }
-            let httpStatus = response as? NSHTTPURLResponse
-            if  httpStatus?.statusCode == 420 {           // check for http
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.activityMonitor.stopAnimating()
-                    //initiate data reload
-                    invManager.dataLoaded = false
-                    self.tabBarController?.selectedIndex = 0
-                }
-            }
+        let request = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/add.php", postString: "item="+txtItem.text!+"&desc="+txtDesc.text!)
+        if(request.responseCode == 420){
+            activityMonitor.stopAnimating()
+            //initiate data reload
+            tabBarController?.selectedIndex = 0
+            invManager.getData()
+        }else{
+            activityMonitor.stopAnimating()
         }
-        task.resume()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
