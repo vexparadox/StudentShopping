@@ -59,10 +59,12 @@ class InventoryManager: NSObject {
                 }
                 //set data to be reloaded
                 self.dataLoaded = true
+                return
             }else{
                 //add new item to say it failed
                 self.addItem("Data failed to load", desc: "", id: -1)
                 self.dataLoaded = true
+                return
             }
         }
         //resume the task

@@ -90,96 +90,56 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     @IBAction func btnLoginClick(sender: UIButton){
         var password : String = ""
+        var username : String = ""
         var responseSalt : String = ""
-        var saltRecieved : Bool = false
         activityMonitor.startAnimating()
-        
-        let saltRequest = NSMutableURLRequest(URL: NSURL(string: "http://igor.gold.ac.uk/~wmeat002/app/salt.php")!)
-        saltRequest.HTTPMethod = "POST"
-        let postSaltString = "username="+txtUsername.text!
-        saltRequest.HTTPBody = postSaltString.dataUsingEncoding(NSUTF8StringEncoding)
-        //create a task thread
-        let saltTask = NSURLSession.sharedSession().dataTaskWithRequest(saltRequest) { data, response, error in
-            guard error == nil && data != nil else {
-                //talk of a network error
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.lblResponse.text = "Network error"
-                    saltRecieved = true
-                    self.activityMonitor.stopAnimating()
-                }
-                return
-            }
-            //get the HTTPStatus
-            let httpStatus = response as? NSHTTPURLResponse
-            print(httpStatus?.statusCode)
-            if  httpStatus?.statusCode == 420 { // check for http
-                //save the salt
-                responseSalt = String(NSString(data: data!, encoding: NSUTF8StringEncoding)!)
-                saltRecieved = true
-            }else{
-                saltRecieved = true
-            }
-        };saltTask.resume()
-        while(!saltRecieved){}//wait for the salt
+        username = txtUsername.text!
+        //get the salt
+        responseSalt = retrieveSalt(username)
         //if there's no salt found
         if(responseSalt == ""){
             lblResponse.text = "User not found"
             activityMonitor.stopAnimating()
             return
         }
-        print("salt :"+responseSalt)
-        password = txtPassword.text!+responseSalt //append the salt
-        password = sha256(password.dataUsingEncoding(NSUTF8StringEncoding)!) //hash it
-        //remove the <>
-        password = password.stringByReplacingOccurrencesOfString("<", withString: "")
-        password = password.stringByReplacingOccurrencesOfString(">", withString: "")
-        print("password: "+password)
+        password = saltHash(txtPassword.text!, salt: responseSalt)
         //compare with the server
-        //create a request
-        let request = NSMutableURLRequest(URL: NSURL(string: "http://igor.gold.ac.uk/~wmeat002/app/login.php")!)
-        request.HTTPMethod = "POST"
-        //pass the username and password
-        let postString = "username="+txtUsername.text!+"&password="+password
-        //new request
-        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        //create a task thread
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
-            guard error == nil && data != nil else {
-                //talk of a network error
-                //has to be on a different thread because it edits the ui
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.lblResponse.text = "Network error"
-                    self.activityMonitor.stopAnimating()
-                }
-                return
-            }
-            //get the HTTPStatus
-            let httpStatus = response as? NSHTTPURLResponse
-            print(httpStatus?.statusCode)
-            //if it's wrong
-            if  httpStatus?.statusCode != 420 { // check for http
-                //has to be on a different thread because it edits the ui
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.lblResponse.text = "Login failed"
-                    self.activityMonitor.stopAnimating()
-                }
-            }else{
-                //if it's right
-                //has to be on a different thread because it edits the ui
-                dispatch_async(dispatch_get_main_queue()) {
-                    //set preferences to logged in
-                    let prefs = NSUserDefaults.standardUserDefaults()
-                    prefs.setBool(true, forKey: "logged")
-                    prefs.setValue(self.txtUsername.text!, forKey: "username")
-                    self.lblResponse.text = "Login successful"
-                    self.txtUsername.text = ""
-                    self.txtPassword.text = ""
-                    self.activityMonitor.stopAnimating()
-                    self.tabBarController?.selectedIndex = 0
-                }
-            }
+        checkLogin(password, username: username)
+    }
+    
+    //a function that returns the salt of a given user
+    func retrieveSalt(username: String) -> String{
+        let saltRequest = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/salt.php", postString: "username="+username)
+        return saltRequest.responseString
+    }
+    
+    //compares the login and changed the approiate things if correct
+    func checkLogin(password: String, username: String){
+        let loginRequest = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/login.php", postString: "username="+username+"&password="+password)
+        if(loginRequest.responseCode == -1){ // if there's a network error
+            self.lblResponse.text = "Network error"
+            self.activityMonitor.stopAnimating()
+        }else if(loginRequest.responseCode == 420){ //if the login is successful
+            let prefs = NSUserDefaults.standardUserDefaults()
+            prefs.setBool(true, forKey: "logged")
+            prefs.setValue(self.txtUsername.text!, forKey: "username")
+            self.lblResponse.text = "Login successful"
+            self.txtUsername.text = ""
+            self.txtPassword.text = ""
+            self.activityMonitor.stopAnimating()
+            self.tabBarController?.selectedIndex = 0
+        }else{ //if not
+            self.lblResponse.text = "Login failed"
+            self.activityMonitor.stopAnimating()
         }
-        //resume the task
-        task.resume()
+    }
+    
+    //salts and hashes a password
+    func saltHash(password: String, salt: String) -> String{
+        var newPassword = sha256(password.dataUsingEncoding(NSUTF8StringEncoding)!) //hash it
+        //remove the <>
+        newPassword = password.stringByReplacingOccurrencesOfString("<", withString: "")
+        newPassword = password.stringByReplacingOccurrencesOfString(">", withString: "")
+        return newPassword
     }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C207B2281CB3BE70006BFD32 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = C207B2271CB3BE70006BFD32 /* Common.swift */; };
 		C207B22D1CB7C3A5006BFD32 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C207B22C1CB7C3A5006BFD32 /* SignUpViewController.swift */; };
+		C207B2311CB7CB85006BFD32 /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C207B2301CB7CB85006BFD32 /* PostRequest.swift */; };
 		C273F9261CAFDAC4007174C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273F9251CAFDAC4007174C4 /* AppDelegate.swift */; };
 		C273F9281CAFDAC4007174C4 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273F9271CAFDAC4007174C4 /* FirstViewController.swift */; };
 		C273F92A1CAFDAC4007174C4 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273F9291CAFDAC4007174C4 /* SecondViewController.swift */; };
@@ -43,6 +44,7 @@
 		C207B2271CB3BE70006BFD32 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		C207B2291CB3BEA6006BFD32 /* HeaderLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderLoader.h; sourceTree = "<group>"; };
 		C207B22C1CB7C3A5006BFD32 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		C207B2301CB7CB85006BFD32 /* PostRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
 		C273F9221CAFDAC4007174C4 /* TDO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TDO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C273F9251CAFDAC4007174C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C273F9271CAFDAC4007174C4 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				C207B2271CB3BE70006BFD32 /* Common.swift */,
 				C207B2291CB3BEA6006BFD32 /* HeaderLoader.h */,
 				C29966D11CB2E8CF00C15998 /* CSwiftV.swift */,
+				C207B2301CB7CB85006BFD32 /* PostRequest.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				C29966D01CB2C9E500C15998 /* LoginViewController.swift in Sources */,
 				C29966D21CB2E8CF00C15998 /* CSwiftV.swift in Sources */,
 				C273F9281CAFDAC4007174C4 /* FirstViewController.swift in Sources */,
+				C207B2311CB7CB85006BFD32 /* PostRequest.swift in Sources */,
 				C207B2281CB3BE70006BFD32 /* Common.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
