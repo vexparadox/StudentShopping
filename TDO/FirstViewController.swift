@@ -31,6 +31,14 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if(!invManager.dataLoaded){ // if the data isn't loaded, reload it from the server
+            loadData()
+        }else{
+            tblItems.reloadData() // if not, just make sure the table is updated
+        }
+    }
+    
     func loadData(){
         //check if they're logged in
         let prefs = NSUserDefaults.standardUserDefaults()
@@ -45,13 +53,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         //then reload the table
         tblItems.reloadData()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        //if the data hasn't been loaded, or has been set to reload
-        if(!invManager.dataLoaded){
-            loadData()
-        }
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
