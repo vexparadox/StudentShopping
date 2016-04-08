@@ -70,12 +70,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         }
     }
     
+    
     @IBAction func btnSignUpClick(sender: UIButton){
         //open the signup view
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let signupViewController = storyBoard.instantiateViewControllerWithIdentifier("SignUpView") as! SignUpViewController
         self.presentViewController(signupViewController, animated:true, completion:nil)
-
     }
     
     @IBAction func btnLogoutClick(sender: UIButton){
@@ -84,7 +84,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         prefs.setBool(false, forKey: "logged")
         prefs.removeObjectForKey("username")
         invManager.clearData()
-        self.tabBarController?.selectedIndex = 0
+        tabBarController?.selectedIndex = 0
     }
     
     @IBAction func btnLoginClick(sender: UIButton){
@@ -135,10 +135,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     //salts and hashes a password
     func saltHash(password: String, salt: String) -> String{
-        var newPassword = sha256(password.dataUsingEncoding(NSUTF8StringEncoding)!) //hash it
+        var newPassword = password+salt
+        newPassword = sha256(newPassword.dataUsingEncoding(NSUTF8StringEncoding)!) //hash it
         //remove the <>
-        newPassword = password.stringByReplacingOccurrencesOfString("<", withString: "")
-        newPassword = password.stringByReplacingOccurrencesOfString(">", withString: "")
+        newPassword = newPassword.stringByReplacingOccurrencesOfString("<", withString: "")
+        newPassword = newPassword.stringByReplacingOccurrencesOfString(">", withString: "")
+        print(newPassword)
         return newPassword
     }
 }

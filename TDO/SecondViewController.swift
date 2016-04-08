@@ -36,8 +36,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         if(request.responseCode == 420){
             activityMonitor.stopAnimating()
             //initiate data reload
-            tabBarController?.selectedIndex = 0
             invManager.getData()
+            tabBarController?.selectedIndex = 0
         }else{
             activityMonitor.stopAnimating()
         }
@@ -55,6 +55,5 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-
 }
 

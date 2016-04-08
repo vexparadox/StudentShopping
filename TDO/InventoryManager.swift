@@ -31,11 +31,20 @@ class InventoryManager: NSObject {
             dataLoaded = true
             return
         }else if(request.responseCode == 420){ // if the data is recieved
+            print(request.responseString)
             let csv = CSwiftV(String: request.responseString)
             print(csv.headers)
             //add the headers as new items
             for item in csv.headers {
-                addItem(item, desc: "", id: 0)
+                if(item.hasPrefix("?>?")){
+                    var temp = items.last
+                    temp?.desc = item.stringByReplacingOccurrencesOfString("?>?", withString: "")
+                    items.removeLast()
+                    items.append(temp!)
+                }else{
+                    addItem(item, desc: "", id: 0)
+                }
+                
             }
             dataLoaded = true
             return
