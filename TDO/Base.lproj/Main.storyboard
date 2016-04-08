@@ -38,21 +38,30 @@
                                     <rect key="frame" x="20" y="28" width="174" height="38"/>
                                 </variation>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZiA-Pn-FD4">
+                                <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="360" y="46" width="20" height="20"/>
+                                </variation>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="y73-iN-FoJ"/>
+                                <exclude reference="ZiA-Pn-FD4"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="y73-iN-FoJ"/>
+                                <include reference="ZiA-Pn-FD4"/>
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="List" image="first" selectedImage="second" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="List" image="first" selectedImage="first" id="acW-dT-cKf"/>
                     <connections>
+                        <outlet property="activityMonitor" destination="ZiA-Pn-FD4" id="v3t-UC-5xO"/>
                         <outlet property="tblItems" destination="90b-8B-5nm" id="O6D-aO-NJd"/>
                     </connections>
                 </viewController>
@@ -72,15 +81,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add to the list" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BiR-ZE-Sxr">
-                                <rect key="frame" x="190" y="28" width="220" height="48"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="74" y="107" width="253" height="48"/>
-                                </variation>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Potato" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="egw-qL-wIC">
                                 <rect key="frame" x="190" y="114" width="220" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -134,11 +134,19 @@
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="axS-na-sy5">
                                 <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="290" y="297" width="20" height="20"/>
                                 </variation>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add to the list" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BiR-ZE-Sxr">
+                                <rect key="frame" x="190" y="28" width="220" height="48"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="74" y="95" width="253" height="48"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -156,7 +164,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Add" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Add" image="second" selectedImage="second" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="activityMonitor" destination="axS-na-sy5" id="g8I-Hb-Wb1"/>
                         <outlet property="txtDesc" destination="kqh-85-sfR" id="xlC-kR-Aii"/>
@@ -386,7 +394,6 @@
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jQ5-gN-zIL">
                                 <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="303" y="255" width="20" height="20"/>
                                 </variation>
@@ -458,7 +465,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Login" image="first" selectedImage="second" id="cG6-di-ajI" userLabel="Login"/>
+                    <tabBarItem key="tabBarItem" title="Login" image="first" selectedImage="first" id="cG6-di-ajI" userLabel="Login"/>
                     <connections>
                         <outlet property="activityMonitor" destination="jQ5-gN-zIL" id="DyH-91-ciY"/>
                         <outlet property="btnLogin" destination="jGa-yy-jGN" id="DFa-cc-r2r"/>
