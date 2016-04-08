@@ -65,31 +65,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if(editingStyle == UITableViewCellEditingStyle.Delete){
             //get the item name
             let itemName = invManager.items[indexPath.row].name
-            //send a request to delete it
-            let request = NSMutableURLRequest(URL: NSURL(string: "http://igor.gold.ac.uk/~wmeat002/app/remove.php")!)
-            request.HTTPMethod = "POST"
-            let postString = "name="+itemName
-            request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-            //create a task thread
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
-                guard error == nil && data != nil else {
-                    //talk of a network error
-                    //has to be on a different thread because it edits the ui
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.loadData()
-                    }
-                    return
-                }
-                //get the HTTPStatus
-                let httpStatus = response as? NSHTTPURLResponse
-                print(httpStatus?.statusCode)
-                if  httpStatus?.statusCode == 420 { // check for http
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.loadData()
-                    }
-                }
-            }
-            task.resume()
+            _ = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/remove.php", postString: "name="+itemName)
+            loadData()
         }
     }
 

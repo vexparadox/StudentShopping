@@ -28,7 +28,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     @IBAction func btnAddItemClick(sender: UIButton){
         activityMonitor.startAnimating()
         //you require a name
-        if(txtItem.text == ""){
+        if(txtItem.text! == ""){
             activityMonitor.stopAnimating()
             return
         }
