@@ -51,7 +51,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             while(!invManager.dataLoaded){}
         }else{
             //else just add a login prompt
-            invManager.addItem("Please login", desc: "", id: -1)
+            invManager.clearData()
+            invManager.addItem(-1, household: -1, name: "Please login", desc: "")
         }
         //then reload the table
         tblItems.reloadData()
@@ -69,9 +70,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if(editingStyle == UITableViewCellEditingStyle.Delete){
             activityMonitor.startAnimating()
             //get the item name
-            let itemName = invManager.items[indexPath.row].name
-            _ = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/remove.php", postString: "name="+itemName)
-            loadData()
+            let itemID = String(invManager.items[indexPath.row].id)
+            if itemID != "-1"{
+                _ = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/remove.php", postString: "id="+itemID)
+                loadData()
+            }
             activityMonitor.stopAnimating()
         }
     }
