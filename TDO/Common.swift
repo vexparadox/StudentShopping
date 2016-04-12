@@ -13,3 +13,27 @@ func sha256(data : NSData) -> String {
     CC_SHA256(data.bytes, CC_LONG(data.length), UnsafeMutablePointer(res!.mutableBytes))
     return "\(res!)".stringByReplacingOccurrencesOfString("", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
 }
+//http://stackoverflow.com/questions/26845307/generate-random-alphanumeric-string-in-swift
+func randomAlphaNumericString(length: Int) -> String {
+    
+    let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    let allowedCharsCount = UInt32(allowedChars.characters.count)
+    var randomString = ""
+    for _ in (0..<length) {
+        let randomNum = Int(arc4random_uniform(allowedCharsCount))
+        let newCharacter = allowedChars[allowedChars.startIndex.advancedBy(randomNum)]
+        randomString += String(newCharacter)
+    }
+    
+    return randomString
+}
+
+//salts and hashes a password
+func saltHash(password: String, salt: String) -> String{
+    var newPassword = password+salt
+    newPassword = sha256(newPassword.dataUsingEncoding(NSUTF8StringEncoding)!) //hash it
+    //remove the <>
+    newPassword = newPassword.stringByReplacingOccurrencesOfString("<", withString: "")
+    newPassword = newPassword.stringByReplacingOccurrencesOfString(">", withString: "")
+    return newPassword
+}

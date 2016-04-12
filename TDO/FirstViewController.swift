@@ -43,7 +43,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let loggedin = prefs.boolForKey("logged")
         //set the title
         if (loggedin) {
-            lblTitle.text = "Shopping List: " + String(prefs.integerForKey("userHousehold"))
+            lblTitle.text = "Shopping List: " + prefs.stringForKey("userHousehold")!
         }else{
             lblTitle.text = "Shopping List"
         }

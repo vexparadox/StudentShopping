@@ -12,11 +12,13 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var txtItem : UITextField!
     @IBOutlet var txtDesc : UITextField!
+    @IBOutlet var lblResponse : UILabel!
     @IBOutlet var activityMonitor : UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        txtItem.delegate = self
+        txtDesc.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,11 +26,16 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        lblResponse.text = ""
+    }
+    
     //to add an item
     @IBAction func btnAddItemClick(sender: UIButton){
         activityMonitor.startAnimating()
         //you require a name
         if(txtItem.text! == ""){
+            lblResponse.text = "Name needed"
             activityMonitor.stopAnimating()
             return
         }
@@ -37,11 +44,15 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         loggedToken = prefs.valueForKey("userToken")?.description
         let request = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/add.php", postString: "item="+txtItem.text!+"&desc="+txtDesc.text!+"&token="+loggedToken!)
         if(request.responseCode == 420){
-            activityMonitor.stopAnimating()
             //initiate data reload
             invManager.getData()
+            activityMonitor.stopAnimating()
             tabBarController?.selectedIndex = 0
+        }else if(request.responseCode == 422){
+            lblResponse.text = "Login expired"
+            activityMonitor.stopAnimating()
         }else{
+            lblResponse.text = "Server error"
             activityMonitor.stopAnimating()
         }
     }
@@ -51,7 +62,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool{
-        if(textField.isEqual(txtItem)){
+        if textField == txtItem {
             txtDesc.isFirstResponder()
         }else{
             self.view.endEditing(true)

@@ -26,7 +26,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        txtPassword.delegate = self
+        txtUsername.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,7 +40,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool{
-        self.view.endEditing(true)
+        if textField == txtUsername{
+            txtPassword.becomeFirstResponder()
+        }else{
+            self.view.endEditing(true)
+        }
         return true
     }
     
@@ -120,6 +125,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             activityMonitor.stopAnimating()
         }else if(loginRequest.responseCode == 420){ //if the login is successful
             do{
+                print(loginRequest.responseString)
                 let data = loginRequest.responseString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
                 let prefs = NSUserDefaults.standardUserDefaults()
@@ -129,8 +135,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                     prefs.setInteger(id, forKey: "userHousehold")
                 }
                 //household
-                if let household = json["household"] as? Int {
-                    prefs.setInteger(household, forKey: "userHousehold")
+                if let household = json["household"] as? String {
+                    prefs.setValue(household, forKey: "userHousehold")
                 }
                 //name
                 if let name = json["name"] as? String {
@@ -138,7 +144,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                 }
                 //token
                 if let token = json["token"] as? String {
-                    print(token)
                     prefs.setValue(token, forKey: "userToken")
                 }
             } catch {
@@ -154,16 +159,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             lblResponse.text = "Login failed"
             activityMonitor.stopAnimating()
         }
-    }
-    
-    //salts and hashes a password
-    func saltHash(password: String, salt: String) -> String{
-        var newPassword = password+salt
-        newPassword = sha256(newPassword.dataUsingEncoding(NSUTF8StringEncoding)!) //hash it
-        //remove the <>
-        newPassword = newPassword.stringByReplacingOccurrencesOfString("<", withString: "")
-        newPassword = newPassword.stringByReplacingOccurrencesOfString(">", withString: "")
-        print(newPassword)
-        return newPassword
     }
 }
