@@ -45,7 +45,7 @@
 		C207B2291CB3BEA6006BFD32 /* HeaderLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderLoader.h; sourceTree = "<group>"; };
 		C207B22C1CB7C3A5006BFD32 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C207B2301CB7CB85006BFD32 /* PostRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
-		C273F9221CAFDAC4007174C4 /* TDO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TDO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C273F9221CAFDAC4007174C4 /* SShopper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SShopper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C273F9251CAFDAC4007174C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C273F9271CAFDAC4007174C4 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		C273F9291CAFDAC4007174C4 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		C273F9231CAFDAC4007174C4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C273F9221CAFDAC4007174C4 /* TDO.app */,
+				C273F9221CAFDAC4007174C4 /* SShopper.app */,
 				C273F9381CAFDAC4007174C4 /* TDOTests.xctest */,
 				C273F9431CAFDAC5007174C4 /* TDOUITests.xctest */,
 			);
@@ -167,9 +167,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C273F9211CAFDAC4007174C4 /* TDO */ = {
+		C273F9211CAFDAC4007174C4 /* SShopper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C273F94C1CAFDAC5007174C4 /* Build configuration list for PBXNativeTarget "TDO" */;
+			buildConfigurationList = C273F94C1CAFDAC5007174C4 /* Build configuration list for PBXNativeTarget "SShopper" */;
 			buildPhases = (
 				C273F91E1CAFDAC4007174C4 /* Sources */,
 				C273F91F1CAFDAC4007174C4 /* Frameworks */,
@@ -179,9 +179,9 @@
 			);
 			dependencies = (
 			);
-			name = TDO;
+			name = SShopper;
 			productName = TDO;
-			productReference = C273F9221CAFDAC4007174C4 /* TDO.app */;
+			productReference = C273F9221CAFDAC4007174C4 /* SShopper.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C273F9371CAFDAC4007174C4 /* TDOTests */ = {
@@ -257,7 +257,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C273F9211CAFDAC4007174C4 /* TDO */,
+				C273F9211CAFDAC4007174C4 /* SShopper */,
 				C273F9371CAFDAC4007174C4 /* TDOTests */,
 				C273F9421CAFDAC5007174C4 /* TDOUITests */,
 			);
@@ -329,12 +329,12 @@
 /* Begin PBXTargetDependency section */
 		C273F93A1CAFDAC4007174C4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C273F9211CAFDAC4007174C4 /* TDO */;
+			target = C273F9211CAFDAC4007174C4 /* SShopper */;
 			targetProxy = C273F9391CAFDAC4007174C4 /* PBXContainerItemProxy */;
 		};
 		C273F9451CAFDAC5007174C4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C273F9211CAFDAC4007174C4 /* TDO */;
+			target = C273F9211CAFDAC4007174C4 /* SShopper */;
 			targetProxy = C273F9441CAFDAC5007174C4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -451,7 +451,7 @@
 				INFOPLIST_FILE = TDO/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = willmeaton.uk.TDO;
+				PRODUCT_BUNDLE_IDENTIFIER = willmeaton.uk.StudentShopper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = TDO/HeaderLoader.h;
@@ -467,7 +467,7 @@
 				INFOPLIST_FILE = TDO/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = willmeaton.uk.TDO;
+				PRODUCT_BUNDLE_IDENTIFIER = willmeaton.uk.StudentShopper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = TDO/HeaderLoader.h;
@@ -532,7 +532,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C273F94C1CAFDAC5007174C4 /* Build configuration list for PBXNativeTarget "TDO" */ = {
+		C273F94C1CAFDAC5007174C4 /* Build configuration list for PBXNativeTarget "SShopper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C273F94D1CAFDAC5007174C4 /* Debug */,
