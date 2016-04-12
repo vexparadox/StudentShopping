@@ -32,7 +32,10 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
             activityMonitor.stopAnimating()
             return
         }
-        let request = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/add.php", postString: "item="+txtItem.text!+"&desc="+txtDesc.text!)
+        var loggedToken : String?
+        let prefs = NSUserDefaults.standardUserDefaults()
+        loggedToken = prefs.valueForKey("userToken")?.description
+        let request = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/add.php", postString: "item="+txtItem.text!+"&desc="+txtDesc.text!+"&token="+loggedToken!)
         if(request.responseCode == 420){
             activityMonitor.stopAnimating()
             //initiate data reload

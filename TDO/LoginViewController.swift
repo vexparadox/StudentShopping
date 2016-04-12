@@ -16,7 +16,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet var txtUsername : UITextField!
     @IBOutlet var txtPassword : UITextField!
     @IBOutlet var lblResponse : UILabel!
-    @IBOutlet var lblSignup : UILabel!
     @IBOutlet var activityMonitor : UIActivityIndicatorView!
     @IBOutlet var btnLogin : UIButton!
     @IBOutlet var btnSignup : UIButton!
@@ -56,7 +55,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             txtUsername.hidden = true
             txtPassword.hidden = true
             btnSignup.hidden = true
-            lblSignup.hidden = true
             lblTitle.text = "Hello, "+loggedname!.description
             btnLogout.hidden = false
         }else{
@@ -64,7 +62,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             txtUsername.hidden = false
             txtPassword.hidden = false
             btnSignup.hidden = false
-            lblSignup.hidden = false
             lblTitle.text = "Login"
             btnLogout.hidden = true
         }
@@ -83,6 +80,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         let prefs = NSUserDefaults.standardUserDefaults()
         prefs.setBool(false, forKey: "logged")
         prefs.removeObjectForKey("username")
+        prefs.removeObjectForKey("userToken")
+        prefs.removeObjectForKey("userID")
+        prefs.removeObjectForKey("userHousehold")
         invManager.clearData()
         tabBarController?.selectedIndex = 0
     }
@@ -119,9 +119,32 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             lblResponse.text = "Network error"
             activityMonitor.stopAnimating()
         }else if(loginRequest.responseCode == 420){ //if the login is successful
-            let prefs = NSUserDefaults.standardUserDefaults()
-            prefs.setBool(true, forKey: "logged")
-            prefs.setValue(self.txtUsername.text!, forKey: "username")
+            do{
+                let data = loginRequest.responseString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+                let prefs = NSUserDefaults.standardUserDefaults()
+                prefs.setBool(true, forKey: "logged")
+                //id
+                if let id = json["id"] as? Int {
+                    prefs.setInteger(id, forKey: "userHousehold")
+                }
+                //household
+                if let household = json["household"] as? Int {
+                    prefs.setInteger(household, forKey: "userHousehold")
+                }
+                //name
+                if let name = json["name"] as? String {
+                    prefs.setValue(name, forKey: "username")
+                }
+                //token
+                if let token = json["token"] as? String {
+                    print(token)
+                    prefs.setValue(token, forKey: "userToken")
+                }
+            } catch {
+                print("error serializing JSON: \(error)")
+            }
+
             lblResponse.text = "Login successful"
             txtUsername.text = ""
             txtPassword.text = ""

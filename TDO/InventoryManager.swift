@@ -23,9 +23,11 @@ class InventoryManager: NSObject {
     
     func getData(){
         self.clearData()
+        var loggedToken : String?
         let prefs = NSUserDefaults.standardUserDefaults()
-        let loggedname = prefs.valueForKey("username")
-        let request = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/data.php", postString: "username="+loggedname!.description)
+        loggedToken = prefs.valueForKey("userToken")?.description
+        //send a token
+        let request = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/data.php", postString: "token="+loggedToken!)
         //if there's a network error
         if(request.responseCode == -1){
             addItem(-1, household: -1, name: "No connection", desc: "")
@@ -33,7 +35,9 @@ class InventoryManager: NSObject {
             return
         }else if(request.responseCode == 420){ // if the data is recieved
             do {
+                //get the data
                 let data = request.responseString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+                //parse that data
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
                 if let jsonItems = json["items"] as? [[String: AnyObject]] {
                     for item in jsonItems {
@@ -61,18 +65,29 @@ class InventoryManager: NSObject {
             } catch {
                 print("error serializing JSON: \(error)")
             }
-            
             dataLoaded = true
             return
-        }else{ // if there's an error on the server
-            addItem(-1, household: -1, name: "Data failed to load", desc: "")
+        }else if (request.responseCode == 422){
+            //if the token is outdated
+            addItem(-1, household: -1, name: "Login expired", desc: "")
+            dataLoaded = true
+            return
+        }else if (request.responseCode == 421){
+            //if there's no data
+            addItem(-1, household: -1, name: "No items yet", desc: "Try adding some more")
+            dataLoaded = true
+            return
+        }else{
+            // if there's an error on the server
+            addItem(-1, household: -1, name: "Data failed to load", desc: String(request.responseCode))
+            print(request.responseCode)
             dataLoaded = true
             return
         }
     }
     
     func addItem(id: Int, household: Int, name: String, desc: String){
-        items.append(Item(id: id, household: household, name: name, desc: desc));
+        items.append(Item(id: id, household: household, name: name, desc: desc))
     }
     
     func clearData(){

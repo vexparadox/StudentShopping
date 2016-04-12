@@ -12,6 +12,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     @IBOutlet var tblItems : UITableView!
     @IBOutlet var activityMonitor : UIActivityIndicatorView!
+    @IBOutlet var lblTitle : UILabel!
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -37,6 +38,14 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             loadData()
         }else{
             tblItems.reloadData() // if not, just make sure the table is updated
+        }
+        let prefs = NSUserDefaults.standardUserDefaults()
+        let loggedin = prefs.boolForKey("logged")
+        //set the title
+        if (loggedin) {
+            lblTitle.text = "Shopping List: " + String(prefs.integerForKey("userHousehold"))
+        }else{
+            lblTitle.text = "Shopping List"
         }
     }
     
