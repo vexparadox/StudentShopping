@@ -125,7 +125,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             activityMonitor.stopAnimating()
         }else if(loginRequest.responseCode == 420){ //if the login is successful
             do{
-                print(loginRequest.responseString)
                 let data = loginRequest.responseString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
                 let prefs = NSUserDefaults.standardUserDefaults()
