@@ -20,6 +20,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         txtItem.delegate = self
         txtDesc.delegate = self
+        checkFields()
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,18 +33,13 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(animated: Bool) {
         //empty the response
         lblResponse.text = ""
-        let prefs = NSUserDefaults.standardUserDefaults()
-        if !prefs.boolForKey("logged"){
-            //check the login here
-            lblResponse.text = "Please login"
-            saveButton.enabled = false
-            txtItem.enabled = false
-            txtDesc.enabled = false
-        }
+        //make the text box appear
+        txtItem.becomeFirstResponder()
     }
     
     //MARK: Actions
     @IBAction func closeWindow(sender: AnyObject) {
+        self.view.endEditing(true)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -83,8 +79,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool{
-        if textField == txtItem {
-            txtDesc.isFirstResponder()
+        if textField === txtItem {
+            txtDesc.becomeFirstResponder()
         }else{
             self.view.endEditing(true)
         }

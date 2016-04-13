@@ -36,6 +36,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let prefs = NSUserDefaults.standardUserDefaults()
         if !prefs.boolForKey("logged"){
             btnAddItem.enabled = false
+        }else{
+            btnAddItem.enabled = true
         }
     }
     
