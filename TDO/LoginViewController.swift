@@ -99,64 +99,77 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         activityMonitor.startAnimating()
         username = txtUsername.text!
         //get the salt
-        responseSalt = retrieveSalt(username)
-        //if there's no salt found
-        if(responseSalt == ""){
-            lblResponse.text = "User not found"
-            activityMonitor.stopAnimating()
-            return
-        }
-        password = saltHash(txtPassword.text!, salt: responseSalt)
-        //compare with the server
-        checkLogin(password, username: username)
-    }
-    
-    //a function that returns the salt of a given user
-    func retrieveSalt(username: String) -> String{
         let saltRequest = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/salt.php", postString: "username="+username)
-        return saltRequest.responseString
+        //get the response salt
+        saltRequest.start { (resultString, resultCode) in
+            responseSalt = resultString
+            //if there's no salt found
+            if(responseSalt == ""){
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.lblResponse.text = "User not found"
+                    self.activityMonitor.stopAnimating()
+                    return
+                }
+            }
+            password = saltHash(self.txtPassword.text!, salt: responseSalt)
+            //compare with the server
+            self.checkLogin(password, username: username)
+        }
     }
     
     //compares the login and changed the approiate things if correct
     func checkLogin(password: String, username: String){
         let loginRequest = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/login.php", postString: "username="+username+"&password="+password)
-        if(loginRequest.responseCode == -1){ // if there's a network error
-            lblResponse.text = "Network error"
-            activityMonitor.stopAnimating()
-        }else if(loginRequest.responseCode == 420){ //if the login is successful
-            do{
-                let data = loginRequest.responseString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-                let prefs = NSUserDefaults.standardUserDefaults()
-                prefs.setBool(true, forKey: "logged")
-                //id
-                if let id = json["id"] as? Int {
-                    prefs.setInteger(id, forKey: "userHousehold")
+        //start the login request
+        loginRequest.start { (resultString, resultCode) in
+            switch resultCode{
+            case 420:
+                //parse the data
+                do{
+                    let data = resultString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+                    let prefs = NSUserDefaults.standardUserDefaults()
+                    prefs.setBool(true, forKey: "logged")
+                    //id
+                    if let id = json["id"] as? Int {
+                        prefs.setInteger(id, forKey: "userHousehold")
+                    }
+                    //household
+                    if let household = json["household"] as? String {
+                        prefs.setValue(household, forKey: "userHousehold")
+                    }
+                    //name
+                    if let name = json["name"] as? String {
+                        prefs.setValue(name, forKey: "username")
+                    }
+                    //token
+                    if let token = json["token"] as? String {
+                        prefs.setValue(token, forKey: "userToken")
+                    }
+                } catch {
+                    print("error serializing JSON: \(error)")
                 }
-                //household
-                if let household = json["household"] as? String {
-                    prefs.setValue(household, forKey: "userHousehold")
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.lblResponse.text = "Login successful"
+                    self.txtUsername.text = ""
+                    self.txtPassword.text = ""
+                    self.activityMonitor.stopAnimating()
+                    self.tabBarController?.selectedIndex = 0
                 }
-                //name
-                if let name = json["name"] as? String {
-                    prefs.setValue(name, forKey: "username")
+                break
+            case -1:
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.lblResponse.text = "Network error"
+                    self.activityMonitor.stopAnimating()
                 }
-                //token
-                if let token = json["token"] as? String {
-                    prefs.setValue(token, forKey: "userToken")
+                break
+            default:
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.lblResponse.text = "Login failed"
+                    self.activityMonitor.stopAnimating()
                 }
-            } catch {
-                print("error serializing JSON: \(error)")
+                break
             }
-
-            lblResponse.text = "Login successful"
-            txtUsername.text = ""
-            txtPassword.text = ""
-            activityMonitor.stopAnimating()
-            tabBarController?.selectedIndex = 0
-        }else{ //if not
-            lblResponse.text = "Login failed"
-            activityMonitor.stopAnimating()
         }
     }
 }

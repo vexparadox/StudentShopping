@@ -67,8 +67,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
         }
         userSalt = randomAlphaNumericString(11)
         userPassword = saltHash(userPassword!, salt: userSalt!)
-        
-        
     }
     
     override func viewWillAppear(animated: Bool) {

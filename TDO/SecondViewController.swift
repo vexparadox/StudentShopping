@@ -49,18 +49,32 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         let prefs = NSUserDefaults.standardUserDefaults()
         loggedToken = prefs.valueForKey("userToken")?.description
         let request = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/add.php", postString: "item="+txtItem.text!+"&desc="+txtDesc.text!+"&token="+loggedToken!)
-        if(request.responseCode == 420){
-            //initiate data reload
-            invManager.getData()
-            activityMonitor.stopAnimating()
-            //dismiss this view
-            dismissViewControllerAnimated(true, completion: nil)
-        }else if(request.responseCode == 422){
-            lblResponse.text = "Login expired"
-            activityMonitor.stopAnimating()
-        }else{
-            lblResponse.text = "Server error"
-            activityMonitor.stopAnimating()
+        request.start { (resultString, resultCode) in
+            switch resultCode{
+            case 420:
+                //initiate data reload
+                invManager.getData({ 
+                    //do nothing when it finnishes
+                })
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.activityMonitor.stopAnimating()
+                    //dismiss this view
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+                break
+            case 422:
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.lblResponse.text = "Login expired"
+                    self.activityMonitor.stopAnimating()
+                }
+                break
+            default:
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.lblResponse.text = "Server error"
+                    self.activityMonitor.stopAnimating()
+                }
+                break
+            }
         }
     }
     

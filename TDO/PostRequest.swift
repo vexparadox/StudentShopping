@@ -16,10 +16,9 @@ class PostRequest{
     init(url: String, postString: String){
         self.url = url
         self.postString = postString
-        start()
     }
     
-    func start(){
+    func start(completion: (resultString: String, resultCode: Int)->Void){
         isComplete = false
         responseCode = 0
         responseString = ""
@@ -43,10 +42,10 @@ class PostRequest{
                 self.responseCode = (httpStatus?.statusCode)!
                 //it's complete
                 self.isComplete = true
+                //will call when finished, stops the UI from freezing up
+                completion(resultString: self.responseString, resultCode: self.responseCode)
             }
         }
         task.resume()
-        //wait for completion
-        while(!isComplete){}
     }
 }

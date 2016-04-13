@@ -47,16 +47,20 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let prefs = NSUserDefaults.standardUserDefaults()
         let loggedin = prefs.boolForKey("logged")
         if(loggedin){
-            //if so call the data and wait for it to load
-            invManager.getData()
-            while(!invManager.dataLoaded){}
+            //if so call the get data
+            invManager.getData({
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tblItems.reloadData()
+                    self.refreshControl.endRefreshing()
+                }
+            })
         }else{
             //else just add a login prompt
             invManager.clearData()
             invManager.addItem(-1, household: -1, name: "Please login", desc: "Or sign up for free")
+            //then reload the table
+            tblItems.reloadData()
         }
-        //then reload the table
-        tblItems.reloadData()
     }
     
     //MARK: Table
@@ -65,8 +69,9 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             //get the item name
             let itemID = String(invManager.items[indexPath.row].id)
             if itemID != "-1"{
-                _ = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/remove.php", postString: "id="+itemID)
-                loadData()
+                _ = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/remove.php", postString: "id="+itemID).start({ (resultString, resultCode) in
+                    self.loadData()
+                })
             }
         }
     }
@@ -81,7 +86,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func handleRefresh(refreshControl: UIRefreshControl) {
         //always reload the data here, no matter what its current state
         loadData()
-        refreshControl.endRefreshing()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{

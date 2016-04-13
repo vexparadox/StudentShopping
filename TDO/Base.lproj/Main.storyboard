@@ -36,21 +36,12 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="btnAddItem" destination="DuR-9N-Eud" id="BV0-gq-BeE"/>
-                        <outlet property="searchDisplayController" destination="iRd-gp-6TG" id="jrp-nD-b2v"/>
                         <outlet property="tblItems" destination="pV6-3K-ozC" id="uuN-iC-EaM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="iRd-gp-6TG">
-                    <connections>
-                        <outlet property="delegate" destination="9pv-A4-QxB" id="kkT-Ct-ph9"/>
-                        <outlet property="searchContentsController" destination="9pv-A4-QxB" id="4la-ye-OMz"/>
-                        <outlet property="searchResultsDataSource" destination="9pv-A4-QxB" id="VKo-hD-Nzx"/>
-                        <outlet property="searchResultsDelegate" destination="9pv-A4-QxB" id="e0C-fB-1sn"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="738" y="-222"/>
+            <point key="canvasLocation" x="706" y="-222"/>
         </scene>
         <!--Add Item-->
         <scene sceneID="wg7-f3-ORb">
@@ -73,16 +64,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                             </textField>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="Zqv-r7-lrl">
-                                <rect key="frame" x="273" y="180" width="20" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Notes" textAlignment="natural" minimumFontSize="17" id="5OZ-6B-9fZ">
                                 <rect key="frame" x="55" y="134" width="210" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" returnKeyType="done"/>
                             </textField>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="Zqv-r7-lrl">
+                                <rect key="frame" x="273" y="180" width="20" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -253,10 +244,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="r0j-y4-R1x">
-                                <rect key="frame" x="261" y="182" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kzR-o8-Ixc">
                                 <rect key="frame" x="16" y="53" width="288" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -293,6 +280,10 @@
                                     <action selector="btnLogoutClick:" destination="1yN-fb-eFl" eventType="touchUpInside" id="tBP-XJ-0kk"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="r0j-y4-R1x">
+                                <rect key="frame" x="150" y="185" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -348,7 +339,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="48o-nw-nqh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1113" y="-222"/>
+            <point key="canvasLocation" x="1085" y="-222"/>
         </scene>
     </scenes>
     <resources>
