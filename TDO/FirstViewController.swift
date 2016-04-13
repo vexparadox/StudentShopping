@@ -9,16 +9,9 @@
 import UIKit
 
 class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    @IBOutlet var tblItems : UITableView!
-    @IBOutlet var lblTitle : UILabel!
     
-    lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(FirstViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        
-        return refreshControl
-    }()
+    @IBOutlet weak var tblItems : UITableView!
+    @IBOutlet weak var btnAddItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,23 +31,15 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }else{
             tblItems.reloadData() // if not, just make sure the table is updated
         }
+        
+        //don't allow additions if not logged in
         let prefs = NSUserDefaults.standardUserDefaults()
-        let loggedin = prefs.boolForKey("logged")
-        //set the title
-        if (loggedin) {
-            lblTitle.text = prefs.stringForKey("userHousehold")!
-        }else{
-            lblTitle.text = "Household"
+        if !prefs.boolForKey("logged"){
+            btnAddItem.enabled = false
         }
     }
     
-    @IBAction func addClick(sender: UIButton){
-        //open the add view
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let signupViewController = storyBoard.instantiateViewControllerWithIdentifier("AddItemView") as! SecondViewController
-        self.presentViewController(signupViewController, animated:true, completion:nil)
-    }
-    
+    //MARK: Data
     func loadData(){
         //check if they're logged in
         let prefs = NSUserDefaults.standardUserDefaults()
@@ -72,12 +57,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tblItems.reloadData()
     }
     
-    func handleRefresh(refreshControl: UIRefreshControl) {
-        //always reload the data here, no matter what its current state
-        loadData()
-        refreshControl.endRefreshing()
-    }
-    
+    //MARK: Table
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath){
         if(editingStyle == UITableViewCellEditingStyle.Delete){
             //get the item name
@@ -88,12 +68,24 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
     }
-
     
-    //UI table view data
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(FirstViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        
+        return refreshControl
+    }()
+
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        //always reload the data here, no matter what its current state
+        loadData()
+        refreshControl.endRefreshing()
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return invManager.items.count
     }
+    
     //load the cells with the items in the inv manager
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Test")

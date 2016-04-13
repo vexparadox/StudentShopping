@@ -10,10 +10,11 @@ import UIKit
 
 class SecondViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet var txtItem : UITextField!
-    @IBOutlet var txtDesc : UITextField!
-    @IBOutlet var lblResponse : UILabel!
-    @IBOutlet var activityMonitor : UIActivityIndicatorView!
+    @IBOutlet weak var txtItem : UITextField!
+    @IBOutlet weak var txtDesc : UITextField!
+    @IBOutlet weak var lblResponse : UILabel!
+    @IBOutlet weak var activityMonitor : UIActivityIndicatorView!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,38 +27,38 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: Navigation
+    
     override func viewWillAppear(animated: Bool) {
+        //empty the response
         lblResponse.text = ""
-    }
-    
-    @IBAction func cancelClick(sender: UIButton){
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    //to add an item
-    @IBAction func btnAddItemClick(sender: UIButton){
         let prefs = NSUserDefaults.standardUserDefaults()
-        //check they're actually logged in
         if !prefs.boolForKey("logged"){
+            //check the login here
             lblResponse.text = "Please login"
-            return
+            saveButton.enabled = false
+            txtItem.enabled = false
+            txtDesc.enabled = false
         }
+    }
+    
+    //MARK: Actions
+    @IBAction func closeWindow(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func addItem(sender: AnyObject){
         activityMonitor.startAnimating()
-        //you require a name
-        if(txtItem.text! == ""){
-            lblResponse.text = "Name needed"
-            activityMonitor.stopAnimating()
-            return
-        }
         var loggedToken : String?
+        let prefs = NSUserDefaults.standardUserDefaults()
         loggedToken = prefs.valueForKey("userToken")?.description
         let request = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/add.php", postString: "item="+txtItem.text!+"&desc="+txtDesc.text!+"&token="+loggedToken!)
         if(request.responseCode == 420){
             //initiate data reload
             invManager.getData()
             activityMonitor.stopAnimating()
-            //dismiss the current view
-            self.dismissViewControllerAnimated(true, completion: nil)
+            //dismiss this view
+            dismissViewControllerAnimated(true, completion: nil)
         }else if(request.responseCode == 422){
             lblResponse.text = "Login expired"
             activityMonitor.stopAnimating()
@@ -67,8 +68,18 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
+    //MARK: Text Field
+    func textFieldDidEndEditing(textField: UITextField) {
+        checkFields()
+    }
+    
+    func checkFields(){
+        saveButton.enabled = true
+        //if no checks come through, it will remain enabled
+        if txtItem.text! == "" {
+            lblResponse.text = "Item name needed"
+            saveButton.enabled = false
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool{
