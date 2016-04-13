@@ -68,12 +68,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="Zqv-r7-lrl">
-                                <rect key="frame" x="257" y="100" width="20" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vNp-wJ-NQ1">
-                                <rect key="frame" x="199" y="218" width="66" height="25"/>
+                                <rect key="frame" x="199" y="259" width="66" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
                                 <state key="normal" title="Put it in."/>
                                 <connections>
@@ -81,39 +77,43 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Response" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iDE-8K-uxb">
-                                <rect key="frame" x="55" y="251" width="210" height="26"/>
+                                <rect key="frame" x="55" y="292" width="210" height="26"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to the list" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pQa-El-LP2">
-                                <rect key="frame" x="20" y="84" width="280" height="50"/>
+                                <rect key="frame" x="20" y="125" width="280" height="50"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Potato" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="yIF-Gw-sDc">
-                                <rect key="frame" x="55" y="142" width="210" height="30"/>
+                                <rect key="frame" x="55" y="183" width="210" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Notes" textAlignment="natural" minimumFontSize="17" id="5OZ-6B-9fZ">
-                                <rect key="frame" x="55" y="180" width="210" height="30"/>
+                                <rect key="frame" x="55" y="221" width="210" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uCR-MK-rCR">
-                                <rect key="frame" x="55" y="216" width="48" height="30"/>
+                                <rect key="frame" x="55" y="257" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="cancelClick:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="0Np-59-TTt"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="Zqv-r7-lrl">
+                                <rect key="frame" x="258" y="141" width="20" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -127,7 +127,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="179" y="534"/>
+            <point key="canvasLocation" x="513" y="-358"/>
         </scene>
         <!--Sign up-->
         <scene sceneID="vIA-RW-Eys">
@@ -229,7 +229,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nsH-fl-vd8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="986" y="86"/>
+            <point key="canvasLocation" x="513" y="320"/>
         </scene>
         <!--Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -315,7 +315,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Account" image="first" selectedImage="first" id="cG6-di-ajI" userLabel="Login"/>
+                    <tabBarItem key="tabBarItem" title="Account" image="second" selectedImage="second" id="cG6-di-ajI" userLabel="Login"/>
                     <connections>
                         <outlet property="activityMonitor" destination="r0j-y4-R1x" id="dFG-ej-Xm0"/>
                         <outlet property="btnLogin" destination="yok-a6-8Et" id="MAq-hS-Dxk"/>
@@ -329,7 +329,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hwl-w4-kjf" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="659" y="85"/>
+            <point key="canvasLocation" x="166" y="320"/>
         </scene>
     </scenes>
     <resources>
