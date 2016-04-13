@@ -11,7 +11,6 @@ import UIKit
 class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tblItems : UITableView!
-    @IBOutlet var activityMonitor : UIActivityIndicatorView!
     @IBOutlet var lblTitle : UILabel!
     
     lazy var refreshControl: UIRefreshControl = {
@@ -50,7 +49,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func loadData(){
-        activityMonitor.startAnimating()
         //check if they're logged in
         let prefs = NSUserDefaults.standardUserDefaults()
         let loggedin = prefs.boolForKey("logged")
@@ -61,15 +59,13 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }else{
             //else just add a login prompt
             invManager.clearData()
-            invManager.addItem(-1, household: -1, name: "Please login", desc: "")
+            invManager.addItem(-1, household: -1, name: "Please login", desc: "Or sign up for free")
         }
         //then reload the table
         tblItems.reloadData()
-        activityMonitor.stopAnimating()
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        // Do some reloading of data and update the table view's data source
         //always reload the data here, no matter what its current state
         loadData()
         refreshControl.endRefreshing()
@@ -77,14 +73,12 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath){
         if(editingStyle == UITableViewCellEditingStyle.Delete){
-            activityMonitor.startAnimating()
             //get the item name
             let itemID = String(invManager.items[indexPath.row].id)
             if itemID != "-1"{
                 _ = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/remove.php", postString: "id="+itemID)
                 loadData()
             }
-            activityMonitor.stopAnimating()
         }
     }
 

@@ -32,6 +32,12 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     //to add an item
     @IBAction func btnAddItemClick(sender: UIButton){
+        let prefs = NSUserDefaults.standardUserDefaults()
+        //check they're actually logged in
+        if !prefs.boolForKey("logged"){
+            lblResponse.text = "Please login"
+            return
+        }
         activityMonitor.startAnimating()
         //you require a name
         if(txtItem.text! == ""){
@@ -40,7 +46,6 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
             return
         }
         var loggedToken : String?
-        let prefs = NSUserDefaults.standardUserDefaults()
         loggedToken = prefs.valueForKey("userToken")?.description
         let request = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/add.php", postString: "item="+txtItem.text!+"&desc="+txtDesc.text!+"&token="+loggedToken!)
         if(request.responseCode == 420){

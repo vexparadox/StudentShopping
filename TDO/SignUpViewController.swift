@@ -72,6 +72,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     }
     
     override func viewWillAppear(animated: Bool) {
+        lblResponse.text = ""
+        //get the households the user can join
         let request = PostRequest(url: "http://igor.gold.ac.uk/~wmeat002/app/households.php", postString: "")
         households.removeAll()
         pickerDataSource.removeAll()
