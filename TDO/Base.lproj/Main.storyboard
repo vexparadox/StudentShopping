@@ -13,13 +13,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping List: 1000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y73-iN-FoJ">
-                                <rect key="frame" x="16" y="20" width="260" height="43"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="pV6-3K-ozC">
                                 <rect key="frame" x="16" y="71" width="288" height="440"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,33 +22,66 @@
                                     <outlet property="dataSource" destination="9pv-A4-QxB" id="dhY-md-1Do"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Household" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y73-iN-FoJ">
+                                <rect key="frame" x="16" y="28" width="260" height="43"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" id="yS1-qb-myG">
+                                <rect key="frame" x="278" y="39" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="addClick:" destination="9pv-A4-QxB" eventType="touchUpInside" id="aGk-Zu-cii"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="first" selectedImage="first" id="acW-dT-cKf"/>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="lblTitle" destination="y73-iN-FoJ" id="zmd-vY-hQe"/>
+                        <outlet property="searchDisplayController" destination="iRd-gp-6TG" id="jrp-nD-b2v"/>
                         <outlet property="tblItems" destination="pV6-3K-ozC" id="uuN-iC-EaM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="iRd-gp-6TG">
+                    <connections>
+                        <outlet property="delegate" destination="9pv-A4-QxB" id="kkT-Ct-ph9"/>
+                        <outlet property="searchContentsController" destination="9pv-A4-QxB" id="4la-ye-OMz"/>
+                        <outlet property="searchResultsDataSource" destination="9pv-A4-QxB" id="VKo-hD-Nzx"/>
+                        <outlet property="searchResultsDelegate" destination="9pv-A4-QxB" id="e0C-fB-1sn"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="166.40000000000001" y="-357.83999999999997"/>
         </scene>
         <!--Add-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="SShopper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddItemView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8rJ-Kc-sve" customClass="SecondViewController" customModule="SShopper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="Zqv-r7-lrl">
-                                <rect key="frame" x="280" y="20" width="20" height="17"/>
+                                <rect key="frame" x="257" y="100" width="20" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Response" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iDE-8K-uxb">
-                                <rect key="frame" x="55" y="217" width="143" height="26"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vNp-wJ-NQ1">
+                                <rect key="frame" x="199" y="218" width="66" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                <state key="normal" title="Put it in."/>
+                                <connections>
+                                    <action selector="btnAddItemClick:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="EPU-R9-pWP"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Response" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iDE-8K-uxb">
+                                <rect key="frame" x="55" y="251" width="210" height="26"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -68,10 +94,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="axS-na-sy5">
-                                <rect key="frame" x="290" y="483" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Potato" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="yIF-Gw-sDc">
                                 <rect key="frame" x="55" y="142" width="210" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -84,12 +106,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vNp-wJ-NQ1">
-                                <rect key="frame" x="199" y="218" width="66" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
-                                <state key="normal" title="Put it in."/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uCR-MK-rCR">
+                                <rect key="frame" x="55" y="216" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                                <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <action selector="btnAddItemClick:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="EPU-R9-pWP"/>
+                                    <action selector="cancelClick:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="0Np-59-TTt"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -221,7 +243,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="D5X-Fd-PJc"/>
                         <segue destination="1yN-fb-eFl" kind="relationship" relationship="viewControllers" id="n5O-GF-GYg"/>
                     </connections>
                 </tabBarController>
@@ -285,7 +306,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Cmy-gx-noK">
                                 <rect key="frame" x="127" y="118" width="67" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <state key="normal" title="Logout"/>
                                 <connections>
                                     <action selector="btnLogoutClick:" destination="1yN-fb-eFl" eventType="touchUpInside" id="tBP-XJ-0kk"/>

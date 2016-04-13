@@ -30,6 +30,10 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         lblResponse.text = ""
     }
     
+    @IBAction func cancelClick(sender: UIButton){
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     //to add an item
     @IBAction func btnAddItemClick(sender: UIButton){
         let prefs = NSUserDefaults.standardUserDefaults()
@@ -52,7 +56,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
             //initiate data reload
             invManager.getData()
             activityMonitor.stopAnimating()
-            tabBarController?.selectedIndex = 0
+            //dismiss the current view
+            self.dismissViewControllerAnimated(true, completion: nil)
         }else if(request.responseCode == 422){
             lblResponse.text = "Login expired"
             activityMonitor.stopAnimating()

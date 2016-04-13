@@ -42,10 +42,17 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let loggedin = prefs.boolForKey("logged")
         //set the title
         if (loggedin) {
-            lblTitle.text = "Shopping List: " + prefs.stringForKey("userHousehold")!
+            lblTitle.text = prefs.stringForKey("userHousehold")!
         }else{
-            lblTitle.text = "Shopping List"
+            lblTitle.text = "Household"
         }
+    }
+    
+    @IBAction func addClick(sender: UIButton){
+        //open the add view
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let signupViewController = storyBoard.instantiateViewControllerWithIdentifier("AddItemView") as! SecondViewController
+        self.presentViewController(signupViewController, animated:true, completion:nil)
     }
     
     func loadData(){
