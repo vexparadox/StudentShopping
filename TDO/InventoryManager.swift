@@ -20,9 +20,11 @@ struct Item {
 class InventoryManager: NSObject {
     var items = [Item]()
     var dataLoaded : Bool = false
+    var dataBeingLoaded : Bool = false
     
     func getData(completion: ()-> Void){
         self.clearData()
+        self.dataBeingLoaded = true
         var loggedToken : String?
         let prefs = NSUserDefaults.standardUserDefaults()
         loggedToken = prefs.valueForKey("userToken")?.description
@@ -85,6 +87,7 @@ class InventoryManager: NSObject {
                 self.dataLoaded = true
                 break
             }
+            self.dataBeingLoaded = false
             completion()
         }
     }

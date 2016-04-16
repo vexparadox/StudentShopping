@@ -44,7 +44,6 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func addItem(sender: AnyObject){
-        activityMonitor.startAnimating()
         var loggedToken : String?
         let prefs = NSUserDefaults.standardUserDefaults()
         loggedToken = prefs.valueForKey("userToken")?.description
@@ -52,12 +51,11 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         request.start { (resultString, resultCode) in
             switch resultCode{
             case 420:
-                //initiate data reload
-                invManager.getData({ 
-                    //do nothing when it finnishes
-                })
+                //do nothing when it finnishes
                 dispatch_async(dispatch_get_main_queue()) {
                     self.activityMonitor.stopAnimating()
+                    //make it reload
+                    invManager.dataLoaded = false
                     //dismiss this view
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
@@ -75,6 +73,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
                 }
                 break
             }
+            return
         }
     }
     

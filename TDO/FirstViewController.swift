@@ -26,7 +26,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     override func viewWillAppear(animated: Bool) {
-        if(!invManager.dataLoaded){ // if the data isn't loaded, reload it from the server
+        if !invManager.dataLoaded && !invManager.dataBeingLoaded {
+            // if the data isn't loaded and not being loaded, reload it from the server
             loadData()
         }else{
             tblItems.reloadData() // if not, just make sure the table is updated
@@ -40,9 +41,10 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             btnAddItem.enabled = true
         }
     }
-    
+        
     //MARK: Data
     func loadData(){
+        refreshControl.beginRefreshing()
         //check if they're logged in
         let prefs = NSUserDefaults.standardUserDefaults()
         let loggedin = prefs.boolForKey("logged")
@@ -60,6 +62,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             invManager.addItem(-1, household: -1, name: "Please login", desc: "Or sign up for free")
             //then reload the table
             tblItems.reloadData()
+            refreshControl.endRefreshing()
         }
     }
     
@@ -84,6 +87,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }()
 
     func handleRefresh(refreshControl: UIRefreshControl) {
+        //dont reload if it is
+        if invManager.dataBeingLoaded {
+            refreshControl.endRefreshing()
+            return
+        }
         //always reload the data here, no matter what its current state
         loadData()
     }

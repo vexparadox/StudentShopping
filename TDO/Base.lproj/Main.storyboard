@@ -14,7 +14,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="pV6-3K-ozC">
-                                <rect key="frame" x="0.0" y="20" width="320" height="497"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="499"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <sections/>
@@ -80,19 +80,19 @@
                     <navigationItem key="navigationItem" title="Add Item" id="OVb-N1-fwb">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="axr-OK-RBx">
                             <connections>
-                                <action selector="closeWindow:" destination="8rJ-Kc-sve" id="7gN-TB-PxI"/>
+                                <action selector="closeWindow:" destination="8rJ-Kc-sve" id="zP6-Hk-F2X"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="RaM-Tz-7N3">
                             <connections>
-                                <action selector="addItem:" destination="8rJ-Kc-sve" id="Zcd-uS-b1Q"/>
+                                <action selector="addItem:" destination="8rJ-Kc-sve" id="Wtg-3K-BMe"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityMonitor" destination="Zqv-r7-lrl" id="VB8-d2-VYO"/>
                         <outlet property="lblResponse" destination="iDE-8K-uxb" id="zPq-Fg-FW9"/>
-                        <outlet property="saveButton" destination="RaM-Tz-7N3" id="min-ax-pwF"/>
+                        <outlet property="saveButton" destination="RaM-Tz-7N3" id="RyK-eX-sYM"/>
                         <outlet property="txtDesc" destination="5OZ-6B-9fZ" id="AfX-hh-o92"/>
                         <outlet property="txtItem" destination="yIF-Gw-sDc" id="PP1-JZ-Mxn"/>
                     </connections>
